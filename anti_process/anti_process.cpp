@@ -74,9 +74,9 @@ public:
 
     void anti_file() {
         HMODULE module = GetModuleHandleA("kernel32.dll");
-        if (module) {
-
-			ptr->CreateProcessW_pointer = (defines::LPFN_CREATEPROCESSW)GetProcAddress(module, "CreateProcessW");
+        if (module) 
+	{
+	    ptr->CreateProcessW_pointer = (defines::LPFN_CREATEPROCESSW)GetProcAddress(module, "CreateProcessW");
             HHOOK hook = SetWindowsHookEx(WH_CBT, (HOOKPROC)detours->CreateProcessW_Hook, module, 0);
             printf("success");
             getchar();
@@ -94,11 +94,12 @@ public:
         }
     }
 
-	void hook_process() {
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
-		DetourAttach(&(PVOID&)ptr->CreateProcessW_pointer, detours->CreateProcessW_Hook);
-		DetourTransactionCommit();
+	void hook_process() 
+	{
+	   DetourTransactionBegin();
+	   DetourUpdateThread(GetCurrentThread());
+	   DetourAttach(&(PVOID&)ptr->CreateProcessW_pointer, detours->CreateProcessW_Hook);
+	   DetourTransactionCommit();
 	} 
 }; static anti_process* process = new anti_process();
 
