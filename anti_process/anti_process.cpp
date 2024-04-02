@@ -94,16 +94,12 @@ public:
         }
     }
 
-    void hook_startup() {
-        // hooking start up was supposed to just stop any files from being added to start up.
-    }
-
-	/*void hook_process() {
+	void hook_process() {
 		DetourTransactionBegin();
 		DetourUpdateThread(GetCurrentThread());
 		DetourAttach(&(PVOID&)ptr->CreateProcessW_pointer, detours->CreateProcessW_Hook);
 		DetourTransactionCommit();
-	}*/ // doing it via detours seemed to cause a small issue where it caused an instant crash.
+	} 
 }; static anti_process* process = new anti_process();
 
 
